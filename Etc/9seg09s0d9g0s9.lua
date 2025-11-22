@@ -124,7 +124,11 @@ function CodeGenerator:GenerateReservedServerCode(placeId)
     uuid[7] = bit32.bor(bit32.band(uuid[7], 0x0F), 0x40)
     uuid[9] = bit32.bor(bit32.band(uuid[9], 0x3F), 0x80)
 
-    local first_bytes = table.concat(uuid, function(i) return string.char(uuid[i]) end, 1, 16)
+    local first_bytes = ""
+    for i = 1, 16 do
+        first_bytes = first_bytes .. string.char(uuid[i])
+    end
+
     local game_code = string.format("%02x%02x%02x%02x-%02x%02x-%02x%02x-%02x%02x-%02x%02x%02x%02x%02x%02x",
         uuid[1], uuid[2], uuid[3], uuid[4], uuid[5], uuid[6], uuid[7], uuid[8],
         uuid[9], uuid[10], uuid[11], uuid[12], uuid[13], uuid[14], uuid[15], uuid[16])
